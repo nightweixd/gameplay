@@ -313,32 +313,70 @@ function Welcome() {
           <span className="dialog-icon">
             <Gamepad2 size={30} aria-hidden="true" />
           </span>
-          <h2 id="welcome-help-title">Ready for your first adventure?</h2>
-          <p>
-            Choose Scratch to open its official website in a new tab, Minecraft to build and code a
-            block world, or Python Carnival to write real Python and complete course-based missions.
-          </p>
-          <ol>
-            <li>
-              <strong>Explore and build.</strong> Walk with W A S D, look with your mouse, and jump
-              with Space. Left-click to break blocks; right-click to place them.
-            </li>
-            <li>
-              <strong>Meet your agent.</strong> Press C to open Code Builder. A tower example is
-              ready for you.
-            </li>
-            <li>
-              <strong>See your code work.</strong> Click Run code, or press T in the world and type
-              run. Press Esc whenever you need a pause.
-            </li>
-          </ol>
+          <h2 id="welcome-help-title">How to play</h2>
+          <p>Pick an adventure from the main screen. Each one has a different way to create.</p>
+          <div className="help-games">
+            <section aria-labelledby="help-scratch-title">
+              <h3 id="help-scratch-title">
+                <Blocks size={20} aria-hidden="true" /> Scratch
+              </h3>
+              <p>
+                Select <strong>Open Scratch</strong> to visit the official Scratch website in a new
+                tab. Make stories, games, and animations with coding blocks. Scratch manages its own
+                account and sharing options; there is no extra Scratch game inside this playground.
+              </p>
+            </section>
+            <section aria-labelledby="help-minecraft-title">
+              <h3 id="help-minecraft-title">
+                <Gamepad2 size={20} aria-hidden="true" /> Minecraft
+              </h3>
+              <ul>
+                <li>
+                  <strong>Build and explore.</strong> Select Play Minecraft, then Play. Use W A S D
+                  to walk, your mouse to look, and Space to jump. Left-click breaks blocks;
+                  right-click places them.
+                </li>
+                <li>
+                  <strong>Code your agent.</strong> Press C for Code Builder. Try the tower example,
+                  change the blocks, and select Run code.
+                </li>
+                <li>
+                  <strong>Pause anytime.</strong> Press Esc. Use a computer with a keyboard and
+                  mouse. The world resets when you leave.
+                </li>
+              </ul>
+            </section>
+            <section aria-labelledby="help-python-title">
+              <h3 id="help-python-title">
+                <Code2 size={20} aria-hidden="true" /> Python Carnival
+              </h3>
+              <ul>
+                <li>
+                  <strong>Start small.</strong> Select Play Python and choose a mission. Read the
+                  goal and write your code in the blank editor, or continue your saved draft. Begin
+                  with strings and integers, then try variables.
+                </li>
+                <li>
+                  <strong>Run and learn.</strong> Select Run Python to see the output and check your
+                  work. Need a hint?, Course lesson, and See an example can help. Examples do not
+                  fill the editor for you.
+                </li>
+                <li>
+                  <strong>Try your own ideas.</strong> Free code is a blank playground without
+                  mission checks. For input(), put one answer per line in Input values. Use Stop to
+                  end a run; endless loops stop after five seconds.
+                </li>
+              </ul>
+            </section>
+          </div>
           <p className="help-reset">
-            Minecraft needs a keyboard and mouse, and resets when you leave. Python drafts and
-            practice stamps save only in this browser. No account or public chat needed.
+            Minecraft and Python need no account. Python drafts and practice stamps save only in
+            this browser. Download important Python code before switching devices or clearing
+            browser data.
           </p>
-          <a className="primary-button" href={minecraft.href}>
-            <Play size={18} aria-hidden="true" fill="currentColor" /> Play Minecraft
-          </a>
+          <button className="primary-button" onClick={() => setHelp(false)}>
+            Got it
+          </button>
         </Dialog>
       )}
     </div>

@@ -89,7 +89,49 @@ const chrome =
       'coming soon must not be clickable',
     )
     await page.getByRole('button', { name: 'How to play', exact: true }).click()
-    await page.getByRole('dialog').waitFor()
+    const welcomeHelp = page.getByRole('dialog', { name: 'How to play', exact: true })
+    await welcomeHelp.waitFor()
+    assert.deepEqual(
+      await welcomeHelp.getByRole('heading', { level: 3 }).allTextContents(),
+      [' Scratch', ' Minecraft', ' Python Carnival'],
+      'main guide covers every adventure in catalog order',
+    )
+    assert.match(await welcomeHelp.innerText(), /blank editor/)
+    assert.match(await welcomeHelp.innerText(), /new tab/)
+    assert.match(await welcomeHelp.innerText(), /world resets when you leave/)
+    assert.match(await welcomeHelp.innerText(), /save only in this browser/)
+    assert.equal(
+      await welcomeHelp.getByRole('link', { name: 'Play Minecraft', exact: true }).count(),
+      0,
+      'guide does not favour one game',
+    )
+    for (const [width, height] of [
+      [1440, 1000],
+      [320, 640],
+      [640, 360],
+    ]) {
+      await page.setViewportSize({ width, height })
+      const bounds = await welcomeHelp.evaluate((dialog) => {
+        dialog.scrollTop = 0
+        const rect = dialog.getBoundingClientRect()
+        return {
+          left: rect.left,
+          right: rect.right,
+          top: rect.top,
+          bottom: rect.bottom,
+          overflow: dialog.scrollWidth > dialog.clientWidth,
+        }
+      })
+      assert.ok(
+        bounds.left >= 0 && bounds.right <= width && bounds.top >= 0 && bounds.bottom <= height,
+        'guide fits viewport',
+      )
+      assert.equal(bounds.overflow, false, 'guide has no horizontal scrolling')
+      await page.screenshot({ path: path.join(output, `welcome-help-${width}.png`) })
+    }
+    await welcomeHelp.getByRole('button', { name: 'Got it', exact: true }).click()
+    assert.equal(await page.getByRole('dialog').count(), 0, 'Got it closes the guide')
+    await page.getByRole('button', { name: 'How to play', exact: true }).click()
     await page.keyboard.press('Escape')
     assert.equal(await page.getByRole('dialog').count(), 0)
     assert.equal(

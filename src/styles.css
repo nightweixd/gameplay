@@ -678,6 +678,28 @@ a {
 .welcome-dialog li strong {
   color: var(--ink);
 }
+.help-games {
+  display: grid;
+  gap: 22px;
+  margin-block: 24px;
+}
+.help-games h3 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 21px;
+  margin-bottom: 8px;
+}
+.help-games h3 svg {
+  flex-shrink: 0;
+  color: var(--blue);
+}
+.help-games ul {
+  padding-left: 20px;
+}
+.help-games li:last-child {
+  margin-bottom: 0;
+}
 .help-reset {
   background: #edf5fc;
   padding: 13px;
