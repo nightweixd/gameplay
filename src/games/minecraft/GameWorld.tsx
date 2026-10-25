@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
 import * as THREE from 'three'
 import {
+  agentRotationY,
   createWorld,
   executeStep,
   WORLD_MATERIALS as MATERIALS,
@@ -244,6 +245,7 @@ export default forwardRef<WorldControls, Props>(function GameWorld(props, ref) {
     label.scale.set(1.2, 0.3, 1)
     robot.add(label)
     robot.position.set(agent.x, agent.y, agent.z)
+    robot.rotation.y = agentRotationY(agent.facing)
     const contactGeometry = new THREE.CircleGeometry(0.37, 16)
     const contactMaterial = new THREE.MeshBasicMaterial({
       color: '#182017',
@@ -625,7 +627,7 @@ export default forwardRef<WorldControls, Props>(function GameWorld(props, ref) {
         }
       contact.position.set(robot.position.x, ground + 0.505, robot.position.z)
       robot.position.lerp(new THREE.Vector3(agent.x, agent.y, agent.z), Math.min(1, dt * 12))
-      robot.rotation.y = (-agent.facing * Math.PI) / 2
+      robot.rotation.y = agentRotationY(agent.facing)
       camera.position.set(
         player.x,
         player.y +

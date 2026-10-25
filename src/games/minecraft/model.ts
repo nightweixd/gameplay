@@ -139,6 +139,11 @@ export function offset(position: Position, facing: number, direction: Direction)
   return { ...position, x: position.x + dx, z: position.z + dz }
 }
 
+export function agentRotationY(facing: number): number {
+  // The robot's visor faces local +Z; movement facing 0 points toward world -Z.
+  return Math.PI - (facing * Math.PI) / 2
+}
+
 export function expandProgram(program: Action[], maxSteps = 600): Step[] {
   const result: Step[] = []
   let visits = 0

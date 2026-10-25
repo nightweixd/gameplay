@@ -23,6 +23,13 @@ const chrome =
       viewport: { width: 1440, height: 1100 },
       reducedMotion: 'reduce',
     })
+    // Observe the real Three.js scene in tests without adding a production debug API.
+    await page.addInitScript(() => {
+      window.__THREE_DEVTOOLS__ = new EventTarget()
+      window.__THREE_DEVTOOLS__.addEventListener('observe', (event) => {
+        if (event.detail.isScene) window.__gameplayTestScene = event.detail
+      })
+    })
     const errors = [],
       failed = [],
       external = []
@@ -147,6 +154,19 @@ const chrome =
     await page.waitForFunction(() => !document.querySelector('button')?.disabled, {
       timeout: 30000,
     })
+    const readAgentHeading = () =>
+      page.evaluate(() => {
+        const robot = window.__gameplayTestScene.children.find(
+          (object) => object.isGroup && object.children.some((child) => child.isSprite),
+        )
+        const front = robot.position.clone().set(0, 0, 1).applyQuaternion(robot.quaternion)
+        return { x: front.x, y: front.y, z: front.z }
+      })
+    const initialHeading = await readAgentHeading()
+    assert.ok(
+      Math.abs(initialHeading.x) < 1e-9 && initialHeading.z < -0.999,
+      'rendered visor faces the same -Z direction as initial forward movement',
+    )
     await page.screenshot({ path: path.join(output, 'minecraft-start.png') })
     await page.getByRole('button', { name: 'How to Play', exact: true }).click()
     await page.getByRole('dialog').waitFor()
@@ -175,6 +195,11 @@ const chrome =
     await page
       .getByText('Done! Your agent ran 8 steps.', { exact: true })
       .waitFor({ timeout: 30000 })
+    assert.deepEqual(
+      await readAgentHeading(),
+      initialHeading,
+      'running a build/move program does not reverse the visible agent',
+    )
     await page.screenshot({ path: path.join(output, 'minecraft-tower.png') })
     await page.keyboard.press('KeyC')
     await page.locator('.blocklySvg').waitFor()
