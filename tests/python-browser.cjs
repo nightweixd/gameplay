@@ -72,6 +72,18 @@ const chrome =
     await page.setViewportSize({ width: 1500, height: 1100 })
     const editor = page.getByRole('textbox', { name: 'Python code', exact: true })
     const output = page.getByLabel('Python output', { exact: true })
+    assert.equal(await editor.inputValue(), '', 'first mission starts blank')
+    assert.equal(
+      await page.getByRole('button', { name: 'Run Python', exact: true }).isDisabled(),
+      true,
+    )
+    await editor.focus()
+    await page.keyboard.press('Control+Enter')
+    assert.equal(
+      await page.getByRole('button', { name: 'Stop', exact: true }).count(),
+      0,
+      'empty keyboard run does not start Python',
+    )
     const run = async () => {
       await page.getByRole('button', { name: 'Run Python', exact: true }).click()
       await page
@@ -101,6 +113,9 @@ const chrome =
         .getByRole('button', { name: new RegExp(mission.title) })
         .first()
         .click()
+      assert.equal(await editor.inputValue(), '', `${mission.id}: new mission starts blank`)
+      await page.getByRole('button', { name: 'See an example', exact: true }).click()
+      assert.equal(await editor.inputValue(), '', 'viewing an example does not prefill the editor')
       await editor.fill(mission.solution)
       await run()
       await page.getByText('Festival stamp earned!', { exact: true }).waitFor({ timeout: 2000 })
@@ -108,6 +123,7 @@ const chrome =
     assert.equal(await page.getByText('8 / 8 festival stamps', { exact: true }).count(), 1)
     await page.screenshot({ path: 'test-results/python-complete.png', fullPage: true })
     await page.getByRole('button', { name: 'Free code', exact: true }).click()
+    assert.equal(await editor.inputValue(), '', 'free code starts blank')
     await editor.fill('print(6 * 7)')
     await run()
     assert.equal((await output.innerText()).trim(), '42')
@@ -154,6 +170,28 @@ const chrome =
     const downloadEvent = page.waitForEvent('download')
     await page.getByRole('button', { name: 'Download Python code', exact: true }).click()
     assert.equal((await downloadEvent).suggestedFilename(), 'my-python-playground.py')
+    await page.getByRole('button', { name: 'Reset code', exact: true }).click()
+    await page.getByRole('dialog').getByRole('button', { name: 'Reset code', exact: true }).click()
+    assert.equal(await editor.inputValue(), '', 'confirmed reset returns to a blank editor')
+    await page
+      .getByRole('button', { name: new RegExp(missions[0].title) })
+      .first()
+      .click()
+    assert.equal(
+      await editor.inputValue(),
+      missions[0].solution,
+      'reset leaves other drafts intact',
+    )
+    await page.getByRole('button', { name: 'Reset code', exact: true }).click()
+    await page.getByRole('dialog').getByRole('button', { name: 'Reset code', exact: true }).click()
+    assert.equal(await editor.inputValue(), '', 'mission reset returns to a blank editor')
+    await page.reload({ waitUntil: 'networkidle' })
+    assert.equal(await editor.inputValue(), '', 'blank reset survives reload')
+    assert.equal(
+      await page.getByText('8 / 8 festival stamps', { exact: true }).count(),
+      1,
+      'reset keeps earned stamps',
+    )
     await page.getByRole('link', { name: 'All games', exact: true }).click()
     await page.getByRole('heading', { name: 'Choose your adventure' }).waitFor()
     assert.deepEqual(errors, [], 'no uncaught browser errors')

@@ -6,7 +6,7 @@ An actual Python editor and interpreter with playful, course-aligned mini-projec
 
 ## Learning sequence
 
-Start with one concept at a time. The first mission uses literal text and integers with `print()`—no variables. The second introduces only variables, with the print lines already provided. Later missions build on those skills.
+Start with one concept at a time. The first mission uses literal text and integers with `print()`—no variables. The second introduces variables using the same familiar print calls. Later missions build on those skills. Every mission and Free code starts with a blank code editor unless a saved draft exists.
 
 | Mission                  | Course topic                   | Activity                                      |
 | ------------------------ | ------------------------------ | --------------------------------------------- |
@@ -19,16 +19,16 @@ Start with one concept at a time. The first mission uses literal text and intege
 | Light the lantern trail  | Module 5: for loops            | Loop through a list and call `light()`        |
 | Build the ticket machine | Module 6: functions            | Return ticket prices from a reusable function |
 
-The topic order and project themes follow GeniusCode+'s Basic Python curriculum. Mission text, starter programs, examples and checks are authored for this playground, not copied teacher lesson bodies. Each mission links to its corresponding course topic. Missions can be attempted in any order.
+The topic order and project themes follow GeniusCode+'s Basic Python curriculum. Mission text, examples and checks are authored for this playground, not copied teacher lesson bodies. Each mission links to its corresponding course topic. Missions can be attempted in any order.
 
 ## Playing and experimenting
 
-Choose **Missions** for guided practice or **Free code** for an unrestricted exercise editor. Change the code and click **Run Python** (or Ctrl/Command + Enter). Put one answer per line in **Input values** before running programs that call `input()`.
+Choose **Missions** for guided practice or **Free code** for an unrestricted exercise editor. Write your code and click **Run Python** (or Ctrl/Command + Enter). Put one answer per line in **Input values** before running programs that call `input()`.
 
 - `print()` output and errors appear as plain text, never HTML.
 - `light("blue")` is a custom Carnival helper. It accepts blue, gold, mint, coral or plum and records up to 12 lanterns for the preview.
 - Hints and worked examples are available without replacing a student's draft.
-- **Reset code** asks for confirmation and affects only the current draft. **Download Python code** exports the current editor contents as a `.py` file.
+- **Reset code** asks for confirmation, clears the current code and restores its default input values. Other drafts and earned stamps remain unchanged. **Download Python code** exports the current editor contents as a `.py` file.
 - A stamp means the current practice checks passed. It is not a formal assessment, certificate or tamper-proof achievement.
 
 ## Storage and privacy
@@ -49,17 +49,17 @@ Storage may be unavailable in some browser modes and is lost if site data is cle
 
 ## Development
 
-| File                                                                   | Responsibility                                                         |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| [missions.ts](../src/games/python/missions.ts)                         | Sequence, goals, starter programs, hints, examples and checks          |
-| [PythonGame.tsx](../src/games/python/PythonGame.tsx)                   | Editor, mission navigation, feedback and saved drafts                  |
-| [CarnivalScene.tsx](../src/games/python/CarnivalScene.tsx)             | Visual preview of bounded results                                      |
-| [harness.py](../src/games/python/harness.py)                           | Real Python execution, input/output capture and mission checks         |
-| [python-runner.worker.ts](../src/games/python/python-runner.worker.ts) | Self-hosted runtime loading and typed messages                         |
-| [runner.ts](../src/games/python/runner.ts)                             | Worker lifecycle, cancellation and timeouts                            |
-| [notebook.ts](../src/games/python/notebook.ts)                         | Versioned localStorage validation                                      |
-| [python.cjs](../tests/python.cjs)                                      | Every mission's passing example and incomplete starter in real Pyodide |
-| [python-browser.cjs](../tests/python-browser.cjs)                      | Browser checks for editor, missions, storage, timeout and recovery     |
+| File                                                                   | Responsibility                                                     |
+| ---------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| [missions.ts](../src/games/python/missions.ts)                         | Sequence, goals, blank defaults, hints, examples and checks        |
+| [PythonGame.tsx](../src/games/python/PythonGame.tsx)                   | Editor, mission navigation, feedback and saved drafts              |
+| [CarnivalScene.tsx](../src/games/python/CarnivalScene.tsx)             | Visual preview of bounded results                                  |
+| [harness.py](../src/games/python/harness.py)                           | Real Python execution, input/output capture and mission checks     |
+| [python-runner.worker.ts](../src/games/python/python-runner.worker.ts) | Self-hosted runtime loading and typed messages                     |
+| [runner.ts](../src/games/python/runner.ts)                             | Worker lifecycle, cancellation and timeouts                        |
+| [notebook.ts](../src/games/python/notebook.ts)                         | Versioned localStorage validation                                  |
+| [python.cjs](../tests/python.cjs)                                      | Blank defaults and every mission's passing example in real Pyodide |
+| [python-browser.cjs](../tests/python-browser.cjs)                      | Browser checks for editor, missions, storage, timeout and recovery |
 
 Run `npm run check` for repository hygiene, formatting, all engine tests and a production build. With a preview running on port 5180, run `npm run test:python:browser`. Keep screenshots and generated runtime assets out of Git.
 

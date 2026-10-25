@@ -96,7 +96,7 @@ export default function PythonGame() {
     setFree(mode)
   }
   const run = async () => {
-    if (busy) return
+    if (busy || !draft.code.trim()) return
     const version = ++generation.current
     setResult(null)
     setRuntimeError('')
@@ -423,8 +423,8 @@ export default function PythonGame() {
         <Dialog className="welcome-dialog" labelId="reset-title" onClose={() => setReset(false)}>
           <h2 id="reset-title">Reset this code?</h2>
           <p>
-            This replaces the current draft and input with the starter. Your other drafts and earned
-            stamps stay.
+            This clears the current code and restores the default input values. Your other drafts
+            and earned stamps stay.
           </p>
           <div className={styles.dialogActions}>
             <button onClick={() => setReset(false)}>Keep my code</button>
@@ -452,8 +452,9 @@ export default function PythonGame() {
           </button>
           <h2 id="python-help-title">Bring the carnival to life.</h2>
           <p>
-            Choose a mission, read the goal, and change the starter code. Run Python to see your
-            output and check your work. The hint and course lesson can help if you get stuck.
+            Choose a mission, read the goal, and write your code in the blank editor. Run Python to
+            see your output and check your work. The hint and course lesson can help if you get
+            stuck.
           </p>
           <ol>
             <li>Python cares about spaces. Use four spaces inside a decision, loop or function.</li>

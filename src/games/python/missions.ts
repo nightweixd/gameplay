@@ -25,10 +25,9 @@ export const missions: Mission[] = [
     topic: 'Strings & integers',
     story: 'Start small. Put a welcome message and a number on the carnival sign.',
     goal: 'Use print() to show the string "Welcome!" on the first line and the integer 3 on the second line. No variables needed yet.',
-    starter:
-      '# A string is text inside quotation marks.\nprint("")\n\n# An integer is a whole number. No quotation marks!\nprint(0)\n',
+    starter: '',
     inputs: '',
-    hint: 'Put Welcome! between the quotation marks in the first print(). Change 0 to 3 in the second print(). Keep the number outside quotation marks.',
+    hint: 'Write two print() lines. Put Welcome! inside quotation marks in the first, and the integer 3 without quotation marks in the second.',
     solution: 'print("Welcome!")\nprint(3)\n',
     check:
       'assert _output.strip().splitlines() == ["Welcome!", "3"], "Print Welcome! first, then 3, each on its own line."\nassert any(isinstance(n, _ast.Call) and isinstance(n.func, _ast.Name) and n.func.id == "print" and any(isinstance(a, _ast.Constant) and type(a.value) is int and a.value == 3 for a in n.args) for n in _ast.walk(_tree)), "Print the integer 3 without quotation marks, not the string \'3\'."',
@@ -41,11 +40,10 @@ export const missions: Mission[] = [
     booth: 'Welcome tent',
     topic: 'Variables',
     story: 'You can print text and numbers. Now store them in two named boxes: name and coins.',
-    goal: 'Set name to your made-up explorer name and coins to 3. The print() lines are ready—just change the two variables.',
-    starter:
-      '# Change these two variables.\nname = ""\ncoins = 0\n\n# These print lines are ready for you.\nprint(name)\nprint(coins)\n',
+    goal: 'Set name to your made-up explorer name and coins to 3. Use print() to show name and coins on separate lines.',
+    starter: '',
     inputs: '',
-    hint: 'A variable stores a value under a name. Try name = "Nova" and coins = 3. Leave the two print() lines as they are.',
+    hint: 'A variable stores a value under a name. Try name = "Nova" and coins = 3. Then write print(name) and print(coins).',
     solution: 'name = "Nova"\ncoins = 3\nprint(name)\nprint(coins)\n',
     check:
       'assert isinstance(_ns.get("name"), str) and _ns["name"].strip(), "Give name some text in quotation marks."\nassert type(_ns.get("coins")) is int and _ns["coins"] == 3, "Set coins to the integer 3, not the string \'3\'."\nassert _ns["name"] in _output, "Print a welcome message that includes name."',
@@ -59,8 +57,7 @@ export const missions: Mission[] = [
     topic: 'Input & if / else',
     story: 'A young visitor wants a cinema ticket. Under 12s pay 5 coins; everyone else pays 10.',
     goal: 'Read age with input(), convert it to an integer, and use if / else to set price: 5 when age < 12, otherwise 10. Try changing the input too.',
-    starter:
-      'age = int(input("Your age: "))\n\n# Use if / else to choose the right price.\nprice = 0\n\nprint("Ticket:", price, "coins")\n',
+    starter: '',
     inputs: '9',
     hint: 'Start with if age < 12: and indent price = 5 underneath. Then write else: with price = 10 indented underneath.',
     solution:
@@ -76,9 +73,8 @@ export const missions: Mission[] = [
     booth: 'Fruit grove',
     topic: 'Lists & append()',
     story: 'The fruit stall has apples and bananas. Add an orange so the picnic can begin.',
-    goal: 'Keep the two starting fruits, add "orange" to the fruits list with append(), then print the list.',
-    starter:
-      'fruits = ["apple", "banana"]\n\n# Add one more fruit to the basket.\n\nprint(fruits)\n',
+    goal: 'Create a fruits list containing "apple" and "banana". Add "orange" with append(), then print the list.',
+    starter: '',
     inputs: '',
     hint: 'List methods use a dot: fruits.append("orange"). This adds a new item at the end.',
     solution: 'fruits = ["apple", "banana"]\nfruits.append("orange")\nprint(fruits)\n',
@@ -94,9 +90,8 @@ export const missions: Mission[] = [
     topic: 'Dictionary keys & values',
     story:
       'The snack stall needs its final price tag. Add popcorn and work out a juice-and-popcorn total.',
-    goal: 'Add "popcorn": 4 to prices. Set total to the cost of juice plus popcorn by reading the dictionary values.',
-    starter:
-      'prices = {"juice": 3, "sandwich": 6}\n\n# Add a price for popcorn.\n\n# Use the dictionary to calculate the total.\ntotal = 0\nprint("Snack total:", total)\n',
+    goal: 'Create prices with "juice": 3 and "sandwich": 6, then add "popcorn": 4. Set total to the cost of juice plus popcorn by reading the dictionary values.',
+    starter: '',
     inputs: '',
     hint: 'Add a key with prices["popcorn"] = 4. Then total = prices["juice"] + prices["popcorn"].',
     solution:
@@ -112,9 +107,8 @@ export const missions: Mission[] = [
     booth: 'Rocket ride',
     topic: 'While loops',
     story: 'The rocket ride is ready. Count down from three, then send it on its way.',
-    goal: 'Use a while loop to print 3, 2 and 1 on separate lines. Decrease count each time. After the loop, print "Go!".',
-    starter:
-      'count = 3\n\n# Repeat while count is greater than zero.\n# Print count, then subtract 1.\n\nprint("Go!")\n',
+    goal: 'Set count to 3. Use a while loop to print 3, 2 and 1 on separate lines. Decrease count each time. After the loop, print "Go!".',
+    starter: '',
     inputs: '',
     hint: 'Use while count > 0: with two indented lines: print(count) and count -= 1. Keep print("Go!") outside the loop.',
     solution: 'count = 3\nwhile count > 0:\n    print(count)\n    count -= 1\nprint("Go!")\n',
@@ -129,9 +123,8 @@ export const missions: Mission[] = [
     booth: 'Lantern lane',
     topic: 'For loops & lists',
     story: 'The sun is setting. Use a loop to switch on every lantern along the trail.',
-    goal: 'Loop through colours with for. Call light(colour) for each item to light blue, gold, mint and coral lanterns in order.',
-    starter:
-      'colours = ["blue", "gold", "mint", "coral"]\n\n# Loop through colours and call light() for each one.\n\n',
+    goal: 'Create a colours list containing "blue", "gold", "mint" and "coral" in order. Loop through it with for and call light(colour) for each item.',
+    starter: '',
     inputs: '',
     hint: 'Write for colour in colours: and put light(colour) on the next line with four spaces before it. light() is a special Carnival helper.',
     solution:
@@ -148,9 +141,8 @@ export const missions: Mission[] = [
     topic: 'Parameters & return values',
     story:
       'The whole carnival needs tickets now. Build a reusable function so every visitor gets the correct price.',
-    goal: 'Define ticket_price(age). Return 5 for ages below 12 and 10 otherwise. Call it for ages 8 and 16, then print both results.',
-    starter:
-      'def ticket_price(age):\n    # Replace pass with your price decision.\n    pass\n\nchild_ticket = ticket_price(8)\nadult_ticket = ticket_price(16)\nprint(child_ticket, adult_ticket)\n',
+    goal: 'Define ticket_price(age). Return 5 for ages below 12 and 10 otherwise. Set child_ticket by calling it with 8, and adult_ticket by calling it with 16, then print both results.',
+    starter: '',
     inputs: '',
     hint: 'Inside the function, use if age < 12: return 5. Otherwise return 10. Indent the return lines inside their branches.',
     solution:
@@ -161,7 +153,6 @@ export const missions: Mission[] = [
   },
 ]
 
-export const FREE_CODE =
-  '# Your Python playground. Try your own ideas!\n# Use the input box for input() values, one per line.\n\nname = input("Explorer name: ")\nprint("Hello,", name)\n\nfor colour in ["blue", "gold", "mint", "coral"]:\n    light(colour)\n'
-export const FREE_INPUT = 'Explorer'
+export const FREE_CODE = ''
+export const FREE_INPUT = ''
 export const COLOURS = ['blue', 'gold', 'mint', 'coral', 'plum'] as const

@@ -34,16 +34,22 @@ const { readNotebook, NOTEBOOK_KEY } = require('../src/games/python/notebook.ts'
       'first mission must teach an integer, not a quoted number',
     )
     for (const mission of missions) {
+      assert.equal(mission.starter, '', `${mission.id}: editor starts blank`)
       const solution = run(mission.solution, mission.inputs, mission.check)
       assert.equal(solution.error, '', `${mission.id}: ${solution.error}`)
       assert.equal(solution.passed, true, `${mission.id}: ${solution.feedback}`)
       assert.equal(
         run(mission.starter, mission.inputs, mission.check).passed,
         false,
-        `${mission.id}: starter must need student work`,
+        `${mission.id}: blank code must not pass`,
       )
     }
-    const free = run(FREE_CODE, FREE_INPUT)
+    assert.equal(FREE_CODE, '', 'free-code editor starts blank')
+    assert.equal(FREE_INPUT, '', 'free-code input starts blank')
+    const free = run(
+      'name = input()\nprint("Hello,", name)\nfor colour in ["blue", "gold", "mint", "coral"]:\n    light(colour)',
+      'Explorer',
+    )
     assert.equal(free.error, '')
     assert.match(free.output, /Hello, Explorer/)
     assert.deepEqual(free.view.lights, ['blue', 'gold', 'mint', 'coral'])
@@ -90,7 +96,7 @@ const { readNotebook, NOTEBOOK_KEY } = require('../src/games/python/notebook.ts'
     )
     assert.equal(NOTEBOOK_KEY, 'geniuscode.python-carnival.v1')
     console.log(
-      'Python checks passed: all eight real-Python solutions and incomplete starters, separate literal/variable lessons, course checks, input/output, errors, output bounds, lantern limits, boundary ages, Unicode, and versioned local drafts.',
+      'Python checks passed: blank mission/free-code defaults, all eight real-Python solutions, separate literal/variable lessons, course checks, input/output, errors, output bounds, lantern limits, boundary ages, Unicode, and versioned local drafts.',
     )
   } finally {
     execute.destroy()
