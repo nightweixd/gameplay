@@ -1,0 +1,16 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+coverage/
+.wrangler/
+.env
+.env.*
+tmp/
+temp/
+.idea/
+.vscode/
+*.log
+package-lock.json
+public/blockly/
+public/fonts/

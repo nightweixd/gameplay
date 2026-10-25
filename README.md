@@ -1,10 +1,14 @@
 # GeniusCode+ Gameplay
 
+<img src="public/brand/geniuscode-logo.png" alt="GeniusCode+ logo" width="120" />
+
 **A little play. A lot of possibility.**
 
 A browser-based playground where curious kids can explore, build, and learn through games. Choose an adventure from the welcome screen and jump straight in—no account required.
 
 Created by [GeniusCode+](https://www.geniuscodeplus.com/).
+
+[Play guide](#before-you-play) · [Run locally](#run-locally) · [Project structure](docs/README.md) · [Cloudflare setup](docs/cloudflare.md) · [Contribute](CONTRIBUTING.md)
 
 ## Games
 
@@ -28,20 +32,20 @@ More games will be added to the playground. Upcoming adventures are clearly mark
 
 ## Controls
 
-| Control | Action |
-| --- | --- |
-| W A S D | Walk |
-| Mouse | Look around |
-| Space | Jump |
-| Shift | Walk faster |
-| F | Toggle flight |
-| Space / Shift while flying | Fly up / down |
-| Left / right click | Break / place a block |
-| 1–9 | Select a material |
-| C | Open / close Code Builder |
-| Run code | Run your connected blocks |
-| T, then `run`, then Enter | Run your blocks using a command |
-| Esc | Pause / release the mouse |
+| Control                    | Action                          |
+| -------------------------- | ------------------------------- |
+| W A S D                    | Walk                            |
+| Mouse                      | Look around                     |
+| Space                      | Jump                            |
+| Shift                      | Walk faster                     |
+| F                          | Toggle flight                   |
+| Space / Shift while flying | Fly up / down                   |
+| Left / right click         | Break / place a block           |
+| 1–9                        | Select a material               |
+| C                          | Open / close Code Builder       |
+| Run code                   | Run your connected blocks       |
+| T, then `run`, then Enter  | Run your blocks using a command |
+| Esc                        | Pause / release the mouse       |
 
 Other local commands: `stop` stops your agent, `agent` brings it nearby, and `help` lists available commands.
 
@@ -69,32 +73,43 @@ Built with **React, TypeScript, Vite, Three.js, and Blockly**. The application r
 npm test             # Check the world engine and Blockly programs
 npm run build        # Check types and create the production build
 npm run preview      # Preview the production build
+npm run format       # Format project source and documentation
+npm run check        # Check repo hygiene, formatting, tests and build
 ```
 
-For browser checks, keep a development or preview server running, then run `npm run test:browser`. The tests use a clean headless browser and save screenshots in the ignored `test-results/` folder. Set `GAMEPLAY_TEST_URL` to your server address if needed. On Windows, installed Google Chrome is used by default; elsewhere, run `npx playwright install chromium`. You can also specify a browser executable with `CHROME_PATH`.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for browser testing and code conventions. Generated builds, dependencies, reports, screenshots and local configuration stay out of Git. CI runs the repository checks on pushes and pull requests.
+
+## Project layout
+
+| Folder                             | Contents                                           |
+| ---------------------------------- | -------------------------------------------------- |
+| [src/components/](src/components/) | Shared UI and brand component                      |
+| [src/games/](src/games/)           | Game catalog and individual game implementations   |
+| [public/](public/)                 | Brand artwork, fonts and self-hosted Blockly media |
+| [tests/](tests/)                   | World-engine and browser tests                     |
+| [scripts/](scripts/)               | Repository maintenance checks                      |
+| [docs/](docs/)                     | Architecture and deployment guides                 |
+
+Start with the [directory guide](docs/README.md) to find the right file for a change.
 
 ## Deploy on Cloudflare Pages
 
 Import this GitHub repository into **Cloudflare Pages** and use:
 
-| Setting | Value |
-| --- | --- |
-| Production branch | `main` |
-| Root directory | Repository root |
-| Build command | `npm run build` |
-| Build output directory | `dist` |
-| Node.js version | `22` |
-| Environment variables | None required |
+| Setting                | Value           |
+| ---------------------- | --------------- |
+| Production branch      | `main`          |
+| Root directory         | Repository root |
+| Build command          | `npm run build` |
+| Build output directory | `dist`          |
+| Node.js version        | `22`            |
+| Environment variables  | None required   |
 
-After deployment, add your domain through the project's **Custom domains** settings. Direct links to games use Cloudflare Pages' single-page application fallback.
-
-See the official guides for [React on Cloudflare Pages](https://developers.cloudflare.com/pages/framework-guides/deploy-a-react-site/) and [custom domains](https://developers.cloudflare.com/pages/configuration/custom-domains/).
+See the [Cloudflare deployment guide](docs/cloudflare.md) for the complete setup, custom domains and troubleshooting.
 
 ## Contributing
 
-Suggestions, bug reports, and pull requests are welcome. For a bug report, include your browser, device, steps to reproduce, and a screenshot if useful. Please do not share children's personal information.
-
-To add a game, create its implementation under `src/games/`, register it in `src/games/catalog.ts`, and add its lazy-loaded route and welcome-screen card in `src/App.tsx`. Keep unfinished games marked **Coming soon**. Run the tests and production build before opening a pull request.
+Suggestions, bug reports, and pull requests are welcome. Read the [contribution guide](CONTRIBUTING.md) for the development workflow and how to add a game. Please do not share children's personal information in issues, screenshots or sample data.
 
 ## Credits
 
