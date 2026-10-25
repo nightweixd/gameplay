@@ -1,0 +1,55 @@
+import { Component, lazy, Suspense, useEffect, useState, type ReactNode } from 'react'
+import { ArrowLeft, ArrowUpRight, Blocks, Code2, Gamepad2, Keyboard, Lightbulb, Mouse, Play, Plus, ShieldCheck, Sparkles, X } from 'lucide-react'
+import BlockScene from './components/BlockScene'
+import Dialog from './components/Dialog'
+import { games } from './games/catalog'
+
+const Minecraft = lazy(() => import('./games/minecraft/Game'))
+
+class GameBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false }
+  static getDerivedStateFromError() { return { failed: true } }
+  render() {
+    if (this.state.failed) return <main className="route-loading"><h1>The game couldn’t load.</h1><p>Check your connection, then reload to try again.</p><button className="primary-button" onClick={() => window.location.reload()}>Try again</button><a href="/">All games</a></main>
+    return this.props.children
+  }
+}
+
+function Welcome() {
+  const [help, setHelp] = useState(false)
+  const minecraft = games[0]
+  useEffect(() => { document.title = 'GeniusCode+ Gameplay · Choose your adventure' }, [])
+  return <div className="welcome">
+    <a className="skip-link" href="#games">Skip to games</a>
+    <header className="site-header">
+      <a className="brand" href="/" aria-label="GeniusCode+ Gameplay home"><span className="brand-mark"><Code2 aria-hidden="true" size={27} /></span><span><strong>GeniusCode<span>+</span></strong><small>Gameplay</small></span></a>
+      <nav aria-label="Main navigation"><a className="nav-home" href="https://www.geniuscodeplus.com/">GeniusCode+ website <ArrowUpRight size={16} aria-hidden="true" /></a><button className="help-button" onClick={() => setHelp(true)}><Lightbulb size={18} aria-hidden="true" /> How to play</button></nav>
+    </header>
+    <main>
+      <section className="hero" aria-labelledby="welcome-title">
+        <div className="hero-copy"><div className="welcome-note"><span className="sun-icon"><Sparkles size={19} aria-hidden="true" /></span> Big ideas start with a little play.</div><h1 id="welcome-title">Small players.<br />Endless possibilities.</h1><p>A playground for curious minds.<br className="desktop-break" /> Pick a game, try something new, and see what you can create.</p><a href="#games" className="primary-button"><Gamepad2 size={23} aria-hidden="true" /> Let’s play</a><div className="hero-note"><ShieldCheck size={17} aria-hidden="true" /> Free to explore. No sign-in needed.</div></div>
+        <div className="hero-art"><div className="art-orbit"/><BlockScene /><div className="art-note"><span className="art-note-icon"><Blocks size={19} aria-hidden="true" /></span>Your ideas. Your world.</div></div>
+      </section>
+      <section className="game-library" id="games" aria-labelledby="games-title">
+        <div className="section-heading"><div><h2 id="games-title">Choose your adventure</h2><p>What will you make today?</p></div><span className="game-count"><span /> 1 game ready to play</span></div>
+        <div className="game-grid">
+          <article className="game-card minecraft-card">
+            <a className="game-art-link" href={minecraft.href} aria-label="Play Minecraft Coding World"><div className="minecraft-art"><div className="playable-label"><span /> Ready to play</div><BlockScene small /><span className="art-game-title">Minecraft<span>Coding World</span></span><span className="round-play"><Play size={25} aria-hidden="true" fill="currentColor" /></span></div></a>
+            <div className="game-card-copy"><div className="game-card-title"><h3>{minecraft.title}</h3><span className="game-device" title="Keyboard and mouse"><Keyboard size={19} aria-hidden="true" /><Mouse size={17} aria-hidden="true" /><span className="sr-only">Keyboard and mouse</span></span></div><p>{minecraft.description}</p><div className="skill-tags">{minecraft.skills.map(skill => <span key={skill}>{skill}</span>)}</div><a className="play-game-button" href={minecraft.href}><Play size={17} aria-hidden="true" fill="currentColor" /> Play Minecraft</a><p className="device-note">Best on a computer with a keyboard and mouse.</p></div>
+          </article>
+          <article className="future-card"><div className="future-doodle" aria-hidden="true"><span className="doodle-circle" /><span className="doodle-block" /><span className="doodle-plus"><Plus size={35} /></span><span className="doodle-spark"><Sparkles size={25} /></span></div><span className="coming-soon">Coming soon</span><h3>{games[1].title}</h3><p>{games[1].description}</p><div className="future-bottom"><Gamepad2 size={20} aria-hidden="true" /><span>More ways to play, build, and discover.</span></div></article>
+        </div>
+        <aside className="parent-note"><span className="parent-note-icon"><Lightbulb size={24} aria-hidden="true" /></span><div><h3>A little play. A lot of learning.</h3><p>Try ideas, make mistakes, and try again. That’s how great builders and coders begin.</p></div><span className="parent-note-blocks" aria-hidden="true"><Blocks size={42} /></span></aside>
+      </section>
+    </main>
+    <footer className="site-footer"><a className="footer-back" href="https://www.geniuscodeplus.com/"><ArrowLeft size={16} aria-hidden="true" /> Back to GeniusCode+</a><p>Made for curious minds by GeniusCode+.</p><small>Independent Minecraft-inspired browser experience. Not affiliated with Mojang or Microsoft.</small></footer>
+    {help && <Dialog className="welcome-dialog" labelId="welcome-help-title" onClose={() => setHelp(false)}><button className="dialog-close" aria-label="Close help" onClick={() => setHelp(false)}><X size={22} aria-hidden="true" /></button><span className="dialog-icon"><Gamepad2 size={30} aria-hidden="true" /></span><h2 id="welcome-help-title">Ready for your first adventure?</h2><p>Choose Minecraft to open your own block world. Use a computer with a keyboard and mouse.</p><ol><li><strong>Explore and build.</strong> Walk with W A S D, look with your mouse, and jump with Space. Left-click to break blocks; right-click to place them.</li><li><strong>Meet your agent.</strong> Press C to open Code Builder. A tower example is ready for you.</li><li><strong>See your code work.</strong> Click Run code, or press T in the world and type run. Press Esc whenever you need a pause.</li></ol><p className="help-reset">This is a trial playground. Your world and code reset when you leave. No account, public chat, or downloads needed.</p><a className="primary-button" href={minecraft.href}><Play size={18} aria-hidden="true" fill="currentColor" /> Play Minecraft</a></Dialog>}
+  </div>
+}
+
+export default function App() {
+  const path = window.location.pathname.replace(/\/+$/, '') || '/'
+  if (path === '/games/minecraft' || path === '/minecraft' || path === '/gameplay') return <GameBoundary><Suspense fallback={<main className="route-loading" role="status"><Blocks size={44} aria-hidden="true" /><h1>Opening your block world…</h1><p>Getting your agent and building blocks ready.</p><a href="/">All games</a></main>}><Minecraft /></Suspense></GameBoundary>
+  if (path !== '/') return <main className="route-loading"><Gamepad2 size={42} aria-hidden="true" /><h1>This game isn’t here yet.</h1><a className="primary-button" href="/">Choose a game</a></main>
+  return <Welcome />
+}
