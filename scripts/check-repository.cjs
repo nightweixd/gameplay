@@ -8,9 +8,9 @@ const tracked = execFileSync('git', ['ls-files', '-z'], { cwd: root, encoding: '
   .split('\0')
   .filter(Boolean)
 const generated =
-  /(^|\/)(node_modules|dist|test-results|playwright-report|coverage|\.wrangler|\.vscode|\.idea|tmp|temp)(\/|$)/i
+  /(^|\/)(node_modules|dist|python-runtime|test-results|playwright-report|coverage|\.wrangler|\.vscode|\.idea|tmp|temp)(\/|$)/i
 const local =
-  /(^|\/)(\.env(?:\..*)?|\.DS_Store|Thumbs\.db|Desktop\.ini)$|\.(log|tsbuildinfo|bak|orig|rej)$/i
+  /(^|\/)(\.env(?:\..*)?|\.dev\.vars(?:\..*)?|\.DS_Store|Thumbs\.db|Desktop\.ini)$|\.(log|tsbuildinfo|bak|orig|rej)$/i
 const privateKeys = /\.(pem|key|p12|pfx)$/i
 const forbidden = tracked.filter(
   (file) => generated.test(file) || local.test(file) || privateKeys.test(file),
@@ -32,6 +32,7 @@ const documents = [
   'CONTRIBUTING.md',
   'docs/README.md',
   'docs/cloudflare.md',
+  'docs/python.md',
   'THIRD_PARTY_NOTICES.md',
 ]
 for (const file of documents) {

@@ -17,7 +17,8 @@ gameplay/
 │   ├── components/         Shared UI, logo, illustration and dialog
 │   ├── games/
 │   │   ├── catalog.ts      Game descriptions and availability
-│   │   └── minecraft/     World, agent, block editor and game styles
+│   │   ├── minecraft/     World, agent, block editor and game styles
+│   │   └── python/        Python Carnival, editor, worker and course missions
 │   ├── App.tsx            Welcome screen and route selection
 │   ├── main.tsx           Application entry point and font imports
 │   └── styles.css         Welcome screen and shared web styles
@@ -47,7 +48,7 @@ Root configuration files cover npm, TypeScript, Vite, formatting, editor convent
 
 ## Runtime model
 
-The welcome page loads first. Choosing Minecraft lazy-loads the world and Three.js; opening Code Builder lazy-loads Blockly. The world and code remain in browser memory only. Reloading or leaving the game resets them. There is no server API, account system or database to configure.
+The welcome page loads first. Choosing Minecraft lazy-loads the world and Three.js; opening Code Builder lazy-loads Blockly. Minecraft worlds and code reset on leaving. Python Carnival lazy-loads its editor and starts a fresh Pyodide worker only when code runs. Python drafts and practice stamps save in this browser only. There is no server API, account system or database to configure. See the [Python guide](python.md) for course mapping and limits.
 
 ## Keep the repository tidy
 

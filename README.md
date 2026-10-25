@@ -23,11 +23,23 @@ Explore a Minecraft-inspired block world and turn your ideas into builds.
 
 More games will be added to the playground. Upcoming adventures are clearly marked **Coming soon**.
 
+### Python Carnival
+
+Write real Python to bring a festival to life. Eight guided missions follow GeniusCode+'s Basic Python topics. Start with just strings and integers, then learn variables in a separate mission before moving on to input, decisions, lists, dictionaries, loops and functions.
+
+- Open a cinema, pack a fruit basket, stock a snack shop, launch a countdown, and light a lantern trail.
+- Try **Free code** for your own Python programs, with input, output, useful errors, and `.py` downloads.
+- Get a hint or open the matching course lesson when you need help.
+- Collect practice stamps and keep drafts in this browser—no student account or cloud save.
+
+See the [Python guide](docs/python.md) for the course mapping, runtime limits, and development notes.
+
 ## Before you play
 
 - Minecraft Coding World needs a **computer, keyboard, and mouse**, plus a browser with WebGL enabled.
 - The welcome screen works on mobile, but touch-only controls for the block world are not available yet.
-- This is a trial playground: **your world and code reset when you reload or leave the game**.
+- Minecraft worlds and blocks reset when you leave. Python drafts and practice stamps save only in the current browser and can be lost if browser data is cleared.
+- Python's first run loads about 14 MB of runtime files from this site. Later loads can use the browser cache. Execution has a five-second limit and a Stop button.
 - No account or database is required. The command box talks only to your agent—it is not a public chat.
 
 ## Controls
@@ -64,10 +76,11 @@ Open the local address printed in your terminal.
 
 - `/` — welcome screen and game chooser
 - `/games/minecraft` — Minecraft Coding World
+- `/games/python` — Python Carnival and free-code playground
 
 ## Development
 
-Built with **React, TypeScript, Vite, Three.js, and Blockly**. The application runs entirely in the browser. Fonts and editor media are hosted with the site.
+Built with **React, TypeScript, Vite, Three.js, Blockly, and Pyodide**. The application runs entirely in the browser. Fonts, editor media and the Python runtime are self-hosted. The runtime is copied from the pinned npm package during `dev`/`build`, and its generated files stay out of Git.
 
 ```sh
 npm test             # Check the world engine and Blockly programs
@@ -92,9 +105,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for browser testing and code conventions.
 
 Start with the [directory guide](docs/README.md) to find the right file for a change.
 
-## Deploy on Cloudflare Pages
+## Deploy on Cloudflare
 
-Import this GitHub repository into **Cloudflare Pages** and use:
+For the Git-connected Worker, build with `npm run build` and deploy with `npx wrangler deploy`. The included `wrangler.jsonc` serves `dist/` with a single-page application fallback. `npm run check:cloudflare` validates deployment without publishing. No compiler server is needed—Python runs on the visitor's device.
+
+If you prefer **Cloudflare Pages**, import the repository and use:
 
 | Setting                | Value           |
 | ---------------------- | --------------- |

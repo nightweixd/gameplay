@@ -15,6 +15,8 @@ npm run dev
 
 Use the local address printed by Vite. `/` is the game chooser; `/games/minecraft` is the block world.
 
+`/games/python` is Python Carnival. Read the [Python guide](docs/python.md) before editing missions or the runtime. Python assets are generated from the pinned dependency during dev/build; do not commit `public/python-runtime/`.
+
 ## Before opening a pull request
 
 ```sh
@@ -50,6 +52,8 @@ npm run test:browser
 On Windows, the checks use Google Chrome from its standard installation path. Elsewhere, install the test browser with `npx playwright install chromium`. You can set `CHROME_PATH` to another Chrome/Chromium executable and `GAMEPLAY_TEST_URL` to a different preview address.
 
 The tests cover responsive layout, logo loading, help/focus, game entry, Blockly, agent execution, inventory, commands, pause, exit and fresh sessions. Screenshots go into the ignored `test-results/` folder. Do not commit test artifacts.
+
+Run `npm run test:python:browser` against the same preview for real Python execution, all eight missions, input/output, drafts and stamps, timeouts, Stop, recovery and download checks.
 
 ## Adding a game
 

@@ -3,6 +3,8 @@ dist/
 .wrangler/
 .env
 .env.*
+.dev.vars
+.dev.vars.*
 *.local
 *.tsbuildinfo
 test-results/
@@ -20,3 +22,4 @@ temp/
 *.bak
 *.orig
 *.rej
+public/python-runtime/

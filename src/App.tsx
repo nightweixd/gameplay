@@ -3,6 +3,7 @@ import {
   ArrowLeft,
   ArrowUpRight,
   Blocks,
+  Code2,
   Gamepad2,
   Keyboard,
   Lightbulb,
@@ -19,6 +20,7 @@ import Brand from './components/Brand'
 import { games } from './games/catalog'
 
 const Minecraft = lazy(() => import('./games/minecraft/Game'))
+const Python = lazy(() => import('./games/python/PythonGame'))
 
 class GameBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
   state = { failed: false }
@@ -44,6 +46,7 @@ class GameBoundary extends Component<{ children: ReactNode }, { failed: boolean 
 function Welcome() {
   const [help, setHelp] = useState(false)
   const minecraft = games[0]
+  const python = games[1]
   useEffect(() => {
     document.title = 'GeniusCode+ Gameplay · Choose your adventure'
   }, [])
@@ -107,7 +110,7 @@ function Welcome() {
               <p>What will you make today?</p>
             </div>
             <span className="game-count">
-              <span /> 1 game ready to play
+              <span /> {games.filter((game) => game.available).length} games ready to play
             </span>
           </div>
           <div className="game-grid">
@@ -151,6 +154,51 @@ function Welcome() {
                 <p className="device-note">Best on a computer with a keyboard and mouse.</p>
               </div>
             </article>
+            <article className="game-card python-card">
+              <a className="game-art-link" href={python.href} aria-label="Play Python Carnival">
+                <div className="python-card-art">
+                  <div className="playable-label">
+                    <span /> Ready to play
+                  </div>
+                  <div className="python-card-lanterns" aria-hidden="true">
+                    <i />
+                    <i />
+                    <i />
+                    <i />
+                  </div>
+                  <div className="python-card-code" aria-hidden="true">
+                    <Code2 size={29} />
+                    <code>
+                      for colour in colours:
+                      <br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;light(colour)
+                    </code>
+                  </div>
+                  <span className="art-game-title">
+                    Python<span>Code the carnival</span>
+                  </span>
+                  <span className="round-play">
+                    <Play size={25} aria-hidden="true" fill="currentColor" />
+                  </span>
+                </div>
+              </a>
+              <div className="game-card-copy">
+                <div className="game-card-title">
+                  <h3>{python.title}</h3>
+                  <Code2 size={22} aria-hidden="true" />
+                </div>
+                <p>{python.description}</p>
+                <div className="skill-tags">
+                  {python.skills.map((skill) => (
+                    <span key={skill}>{skill}</span>
+                  ))}
+                </div>
+                <a className="play-game-button" href={python.href}>
+                  <Play size={17} aria-hidden="true" fill="currentColor" /> Play Python
+                </a>
+                <p className="device-note">A real Python editor. No installation or sign-in.</p>
+              </div>
+            </article>
             <article className="future-card">
               <div className="future-doodle" aria-hidden="true">
                 <span className="doodle-circle" />
@@ -163,8 +211,8 @@ function Welcome() {
                 </span>
               </div>
               <span className="coming-soon">Coming soon</span>
-              <h3>{games[1].title}</h3>
-              <p>{games[1].description}</p>
+              <h3>{games[2].title}</h3>
+              <p>{games[2].description}</p>
               <div className="future-bottom">
                 <Gamepad2 size={20} aria-hidden="true" />
                 <span>More ways to play, build, and discover.</span>
@@ -211,7 +259,8 @@ function Welcome() {
           </span>
           <h2 id="welcome-help-title">Ready for your first adventure?</h2>
           <p>
-            Choose Minecraft to open your own block world. Use a computer with a keyboard and mouse.
+            Choose Minecraft to build and code a block world, or Python Carnival to write real
+            Python and complete course-based missions.
           </p>
           <ol>
             <li>
@@ -228,8 +277,8 @@ function Welcome() {
             </li>
           </ol>
           <p className="help-reset">
-            This is a trial playground. Your world and code reset when you leave. No account, public
-            chat, or downloads needed.
+            Minecraft needs a keyboard and mouse, and resets when you leave. Python drafts and
+            practice stamps save only in this browser. No account or public chat needed.
           </p>
           <a className="primary-button" href={minecraft.href}>
             <Play size={18} aria-hidden="true" fill="currentColor" /> Play Minecraft
@@ -242,6 +291,23 @@ function Welcome() {
 
 export default function App() {
   const path = window.location.pathname.replace(/\/+$/, '') || '/'
+  if (path === '/games/python' || path === '/python')
+    return (
+      <GameBoundary>
+        <Suspense
+          fallback={
+            <main className="route-loading" role="status">
+              <Code2 size={44} aria-hidden="true" />
+              <h1>Opening Python Carnival…</h1>
+              <p>Your code brings the carnival to life.</p>
+              <a href="/">All games</a>
+            </main>
+          }
+        >
+          <Python />
+        </Suspense>
+      </GameBoundary>
+    )
   if (path === '/games/minecraft' || path === '/minecraft' || path === '/gameplay')
     return (
       <GameBoundary>

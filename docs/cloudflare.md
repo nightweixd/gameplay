@@ -1,10 +1,32 @@
-# Deploy on Cloudflare Pages
+# Deploy on Cloudflare
 
 [Project home](../README.md) · [Project guide](README.md)
 
 The repository builds to a static site. No database, API keys or environment variables are required.
 
-## Connect the repository
+## Workers Static Assets
+
+The repository includes [wrangler.jsonc](../wrangler.jsonc) for a static-assets-only Worker named `gameplay`. It serves `dist/` and uses the single-page application fallback for game routes. It has no application server code, database bindings or Python execution on Cloudflare. Python runs on the visitor's device.
+
+For a Git-connected Worker, use:
+
+| Setting         | Value                              |
+| --------------- | ---------------------------------- |
+| Repository      | `nightweixd/gameplay`              |
+| Root directory  | Repository root                    |
+| Build command   | `npm run build`                    |
+| Deploy command  | `npx wrangler deploy`              |
+| Node.js version | `22`, specified in `.node-version` |
+
+Keep the existing custom domain attached to the Worker. New commits to the configured production branch build and deploy through Workers Builds. Repository validation uses `npm run check:cloudflare` to perform a dry run without publishing.
+
+The config preserves the existing compatibility date. No extra compatibility flags, bindings or runtime secrets are required for this static-only project. If deploying a separate copy, choose its Worker name deliberately before deploying; do not accidentally overwrite another project.
+
+## Cloudflare Pages alternative
+
+The same `dist/` output can also be hosted on Pages. There is no need to move an existing Worker-hosted site to Pages.
+
+### Connect the repository
 
 1. Open **Workers & Pages → Create application → Pages** in the Cloudflare dashboard.
 2. Choose **Import an existing Git repository** and authorize GitHub access.
@@ -21,7 +43,7 @@ The repository builds to a static site. No database, API keys or environment var
 
 4. Save and deploy. Open the generated `pages.dev` address to test the welcome screen and Minecraft.
 
-If the setup requires a **deploy command**, check that you selected Pages rather than the Workers deployment flow. The settings above are for Pages.
+If the setup requires a **deploy command**, you are in the Workers deployment flow; use the Workers settings above instead.
 
 ## Add a custom domain
 
@@ -39,3 +61,5 @@ Cloudflare Pages' single-page application fallback serves direct links such as `
 - **Custom domain is pending:** confirm the domain was added inside Pages and that its DNS record matches the target supplied by Cloudflare.
 
 Official references: [React on Pages](https://developers.cloudflare.com/pages/framework-guides/deploy-a-react-site/), [custom domains](https://developers.cloudflare.com/pages/configuration/custom-domains/), [serving Pages and SPA routing](https://developers.cloudflare.com/pages/configuration/serving-pages/).
+
+Workers references: [Static Assets](https://developers.cloudflare.com/workers/static-assets/), [single-page applications](https://developers.cloudflare.com/workers/static-assets/routing/single-page-application/), [Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/).

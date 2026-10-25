@@ -980,3 +980,117 @@ a {
     transition: none !important;
   }
 }
+
+.python-card-art {
+  height: 230px;
+  position: relative;
+  overflow: hidden;
+  background: #d9edf4;
+}
+.python-card-art .art-game-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 34px;
+  text-shadow: 0 2px 4px #254c6580;
+}
+.python-card-art .art-game-title > span {
+  font-size: 13px;
+}
+.python-card-art:after {
+  content: '';
+  position: absolute;
+  inset: 50% 0 0;
+  background: linear-gradient(transparent, #355d7480);
+  pointer-events: none;
+}
+.python-card-lanterns {
+  display: flex;
+  gap: 17px;
+  justify-content: flex-end;
+  padding: 28px 27px 0;
+}
+.python-card-lanterns i {
+  display: block;
+  width: 29px;
+  height: 39px;
+  background: #f5cc76;
+  border: 2px solid #c6a568;
+  border-radius: 8px;
+  box-shadow:
+    0 -10px 0 -7px #758493,
+    0 10px 0 -7px #758493;
+}
+.python-card-lanterns i:nth-child(2) {
+  background: #e9988e;
+  border-color: #c67e74;
+  transform: translateY(7px);
+}
+.python-card-lanterns i:nth-child(3) {
+  background: #8fc7b5;
+  border-color: #6d9e8d;
+  transform: translateY(12px);
+}
+.python-card-lanterns i:nth-child(4) {
+  background: #91bfe5;
+  border-color: #6a96b7;
+  transform: translateY(7px);
+}
+.python-card-code {
+  position: absolute;
+  left: 28%;
+  right: 24px;
+  top: 88px;
+  padding: 15px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  transform: rotate(-5deg);
+  background: #fffef5;
+  border-radius: 12px;
+  box-shadow: 0 5px 0 #8db4c05c;
+  color: #32698d;
+}
+.python-card-code code {
+  font:
+    12px/1.8 ui-monospace,
+    Consolas,
+    monospace;
+  white-space: nowrap;
+}
+.game-grid > .future-card {
+  grid-column: 1/-1;
+  min-height: 0;
+  padding: 23px;
+}
+.game-grid > .future-card .future-doodle {
+  display: none;
+}
+.game-grid > .future-card .coming-soon {
+  margin-bottom: 10px;
+}
+.game-grid > .future-card h3 {
+  font-size: 23px;
+}
+.game-grid > .future-card > p {
+  max-width: 600px;
+  font-size: 14px;
+}
+.game-grid > .future-card .future-bottom {
+  margin-top: 16px;
+}
+@media (max-width: 700px) {
+  .python-card-art {
+    height: 220px;
+  }
+  .python-card-code {
+    left: 24px;
+    top: 90px;
+    right: 24px;
+  }
+  .python-card-code code {
+    font-size: 11px;
+  }
+  .python-card-lanterns {
+    padding-right: 26px;
+    gap: 14px;
+  }
+}

@@ -6,6 +6,8 @@ coverage/
 .wrangler/
 .env
 .env.*
+.dev.vars
+.dev.vars.*
 tmp/
 temp/
 .idea/
@@ -14,3 +16,4 @@ temp/
 package-lock.json
 public/blockly/
 public/fonts/
+public/python-runtime/

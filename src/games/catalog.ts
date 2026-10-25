@@ -9,6 +9,15 @@ export const games = [
     href: '/games/minecraft',
   },
   {
+    id: 'python',
+    title: 'Python Carnival',
+    subtitle: 'Real Python. Playful little missions.',
+    description: 'Open a cinema, stock a fruit stall, and light a carnival with real Python code.',
+    skills: ['Python', '8 course-based missions'],
+    available: true,
+    href: '/games/python',
+  },
+  {
     id: 'next',
     title: 'The next adventure',
     subtitle: 'A new way to play is on its way.',
