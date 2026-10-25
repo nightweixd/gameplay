@@ -309,10 +309,13 @@ a {
 }
 .game-grid {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 26px;
 }
 .game-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   background: white;
   border: 1px solid #cedfed;
   border-radius: 22px;
@@ -321,6 +324,7 @@ a {
 }
 .game-art-link {
   display: block;
+  flex-shrink: 0;
 }
 .game-art-link:focus-visible {
   outline-offset: -5px;
@@ -397,6 +401,9 @@ a {
 }
 .game-card-copy {
   padding: 24px 26px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 .game-card-title {
   display: flex;
@@ -414,6 +421,7 @@ a {
   color: #71859c;
 }
 .game-card-copy > p:not(.device-note) {
+  flex: 1;
   color: var(--muted);
   font-size: 15px;
   line-height: 1.65;
@@ -456,6 +464,7 @@ a {
   background: #2459c7;
 }
 .device-note {
+  min-height: 3.2em;
   font-size: 11px;
   text-align: center;
   color: #61748d;
@@ -744,7 +753,7 @@ a {
   }
   .game-grid {
     gap: 20px;
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .game-card-copy {
     padding: 22px 20px;
@@ -981,6 +990,65 @@ a {
   }
 }
 
+.scratch-card-art {
+  position: relative;
+  height: 230px;
+  overflow: hidden;
+  background: #ffe3b2;
+}
+.scratch-card-blocks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  top: 63px;
+  left: 26px;
+  transform: rotate(-4deg);
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+}
+.scratch-card-blocks > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 13px;
+  background: #a86600;
+  border-radius: 7px;
+  box-shadow: inset 0 -3px #0002;
+}
+.scratch-card-blocks > span:nth-child(2) {
+  margin-left: 12px;
+  background: #356cc8;
+}
+.scratch-card-blocks > span:nth-child(3) {
+  margin-left: 12px;
+  background: #8156bd;
+}
+.scratch-card-blocks b {
+  border-radius: 12px;
+  padding: 0 7px;
+  background: white;
+  color: #3c4a60;
+}
+.scratch-card-art .art-game-title {
+  bottom: 17px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 31px;
+  line-height: 1.15;
+  color: #704718;
+  text-shadow: none;
+}
+.scratch-card-art .art-game-title > span {
+  font-size: 12px;
+  margin-top: 4px;
+}
+.scratch-card-art .round-play {
+  color: #704718;
+}
+.minecraft-art .art-game-title {
+  font-size: 22px;
+}
 .python-card-art {
   height: 230px;
   position: relative;
@@ -1036,8 +1104,8 @@ a {
 }
 .python-card-code {
   position: absolute;
-  left: 28%;
-  right: 24px;
+  left: 18px;
+  right: 18px;
   top: 88px;
   padding: 15px;
   display: flex;
@@ -1078,6 +1146,12 @@ a {
   margin-top: 16px;
 }
 @media (max-width: 700px) {
+  .scratch-card-art {
+    height: 220px;
+  }
+  .scratch-card-blocks {
+    top: 57px;
+  }
   .python-card-art {
     height: 220px;
   }

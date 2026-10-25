@@ -12,6 +12,10 @@ Created by [GeniusCode+](https://www.geniuscodeplus.com/).
 
 ## Games
 
+### Scratch
+
+Open the [official Scratch website](https://scratch.mit.edu/) directly from the first card to create stories, games, and animations with visual blocks. It opens in a new tab; there is no separate Scratch gameplay page or embedded editor in this project. Scratch's own account and sharing options are managed by Scratch.
+
 ### Minecraft Coding World
 
 Explore a Minecraft-inspired block world and turn your ideas into builds.

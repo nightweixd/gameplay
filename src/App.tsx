@@ -4,6 +4,7 @@ import {
   ArrowUpRight,
   Blocks,
   Code2,
+  Flag,
   Gamepad2,
   Keyboard,
   Lightbulb,
@@ -45,8 +46,7 @@ class GameBoundary extends Component<{ children: ReactNode }, { failed: boolean 
 
 function Welcome() {
   const [help, setHelp] = useState(false)
-  const minecraft = games[0]
-  const python = games[1]
+  const [scratch, minecraft, python, upcoming] = games
   useEffect(() => {
     document.title = 'GeniusCode+ Gameplay · Choose your adventure'
   }, [])
@@ -110,10 +110,66 @@ function Welcome() {
               <p>What will you make today?</p>
             </div>
             <span className="game-count">
-              <span /> {games.filter((game) => game.available).length} games ready to play
+              <span /> {games.filter((game) => game.available).length} adventures to explore
             </span>
           </div>
           <div className="game-grid">
+            <article className="game-card scratch-card">
+              <a
+                className="game-art-link"
+                href={scratch.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open the Scratch website (opens in a new tab)"
+              >
+                <div className="scratch-card-art">
+                  <div className="playable-label">
+                    <ArrowUpRight size={13} aria-hidden="true" /> Official Scratch website
+                  </div>
+                  <div className="scratch-card-blocks" aria-hidden="true">
+                    <span>
+                      <Flag size={17} fill="currentColor" /> when flag clicked
+                    </span>
+                    <span>
+                      move <b>10</b> steps
+                    </span>
+                    <span>
+                      say <b>Hello!</b>
+                    </span>
+                  </div>
+                  <span className="art-game-title">
+                    Scratch<span>Imagine. Code. Create.</span>
+                  </span>
+                  <span className="round-play">
+                    <ArrowUpRight size={25} aria-hidden="true" />
+                  </span>
+                </div>
+              </a>
+              <div className="game-card-copy">
+                <div className="game-card-title">
+                  <h3>{scratch.title}</h3>
+                  <Blocks size={22} aria-hidden="true" />
+                </div>
+                <p>{scratch.description}</p>
+                <div className="skill-tags">
+                  {scratch.skills.map((skill) => (
+                    <span key={skill}>{skill}</span>
+                  ))}
+                </div>
+                <a
+                  className="play-game-button"
+                  href={scratch.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-describedby="scratch-link-note"
+                >
+                  <ArrowUpRight size={18} aria-hidden="true" /> Open Scratch
+                </a>
+                <p className="device-note" id="scratch-link-note">
+                  Official Scratch website. Opens in a new tab.
+                </p>
+              </div>
+            </article>
             <article className="game-card minecraft-card">
               <a
                 className="game-art-link"
@@ -211,8 +267,8 @@ function Welcome() {
                 </span>
               </div>
               <span className="coming-soon">Coming soon</span>
-              <h3>{games[2].title}</h3>
-              <p>{games[2].description}</p>
+              <h3>{upcoming.title}</h3>
+              <p>{upcoming.description}</p>
               <div className="future-bottom">
                 <Gamepad2 size={20} aria-hidden="true" />
                 <span>More ways to play, build, and discover.</span>
@@ -259,8 +315,8 @@ function Welcome() {
           </span>
           <h2 id="welcome-help-title">Ready for your first adventure?</h2>
           <p>
-            Choose Minecraft to build and code a block world, or Python Carnival to write real
-            Python and complete course-based missions.
+            Choose Scratch to open its official website in a new tab, Minecraft to build and code a
+            block world, or Python Carnival to write real Python and complete course-based missions.
           </p>
           <ol>
             <li>

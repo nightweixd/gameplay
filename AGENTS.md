@@ -4,6 +4,7 @@
 - This is a public, browser-only game playground built with React, TypeScript, Vite, Three.js, and Blockly. Keep it deployable as static files on Cloudflare Pages.
 - Never commit credentials, environment files, student data, account systems, or admin dashboards. Keep this project focused on public gameplay.
 - Minecraft gameplay lives in `src/games/minecraft/`. Keep the welcome/game chooser at `/` and the playable world at `/games/minecraft`.
+- Keep the welcome cards in Scratch, Minecraft, Python order. Scratch links directly to `https://scratch.mit.edu/`; do not add a local Scratch gameplay page or embedded editor.
 - Python Carnival lives in `src/games/python/` at `/games/python`. Keep the first two missions separate: literal strings/integers first, variables second. Do not require input, conditionals or loops in those two beginner tasks.
 - Keep Python execution in a disposable browser worker. Never introduce a server-side untrusted-code runner or publish generated Python runtime files in Git. Preserve runtime licenses and execution limits.
 - The connected deployment uses Workers Static Assets. Preserve `wrangler.jsonc` and its compatibility date unless a change is needed and verified. The build output remains suitable for static hosting.

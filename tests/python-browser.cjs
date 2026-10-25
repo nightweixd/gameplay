@@ -57,7 +57,7 @@ const chrome =
       })
     })
     await page.goto(base, { waitUntil: 'networkidle' })
-    assert.equal(await page.getByText('2 games ready to play', { exact: true }).count(), 1)
+    assert.equal(await page.getByText('3 adventures to explore', { exact: true }).count(), 1)
     await page.getByRole('link', { name: 'Play Python', exact: true }).click()
     await page.getByRole('heading', { name: 'Python Carnival', exact: true }).waitFor()
     for (const width of [1500, 1280, 1024, 768, 390, 320]) {

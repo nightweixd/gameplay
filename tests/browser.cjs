@@ -37,6 +37,18 @@ const chrome =
     const response = await page.goto(base, { waitUntil: 'networkidle' })
     assert.equal(response.status(), 200)
     await page.getByRole('heading', { name: 'Choose your adventure' }).waitFor()
+    assert.deepEqual(
+      await page.locator('.game-card h3').allTextContents(),
+      ['Scratch', 'Minecraft', 'Python Carnival'],
+      'adventures appear in Scratch, Minecraft, Python order',
+    )
+    const scratchLinks = page.locator('.scratch-card a')
+    assert.equal(await scratchLinks.count(), 2)
+    for (const link of await scratchLinks.all()) {
+      assert.equal(await link.getAttribute('href'), 'https://scratch.mit.edu/')
+      assert.equal(await link.getAttribute('target'), '_blank')
+      assert.equal(await link.getAttribute('rel'), 'noopener noreferrer')
+    }
     assert.equal(
       await page.getByRole('link', { name: 'GeniusCode+ Gameplay home', exact: true }).count(),
       1,
@@ -155,8 +167,22 @@ const chrome =
     assert.deepEqual(errors, [], 'no uncaught browser errors')
     assert.deepEqual(failed, [], 'no failed requests')
     assert.deepEqual(external, [], 'gameplay must not request external services')
+    await page.goto(base, { waitUntil: 'networkidle' })
+    await page.context().route('https://scratch.mit.edu/', (route) =>
+      route.fulfill({
+        contentType: 'text/html',
+        body: '<title>Scratch external link test</title>',
+      }),
+    )
+    const popupReady = page.waitForEvent('popup')
+    await page.getByRole('link', { name: 'Open Scratch', exact: true }).click()
+    const scratchPage = await popupReady
+    await scratchPage.waitForLoadState()
+    assert.equal(scratchPage.url(), 'https://scratch.mit.edu/')
+    assert.equal(await scratchPage.evaluate(() => window.opener), null)
+    await scratchPage.close()
     console.log(
-      'Browser checks passed: responsive welcome, help/focus, game entry/deep link, world, inventory, Blockly, 8-step agent execution, code retention, commands, pause/reset/exit, fresh sessions and no external requests.',
+      'Browser checks passed: Scratch/Minecraft/Python order, direct Scratch link in a new tab, responsive welcome, help/focus, game entry/deep link, world, inventory, Blockly, 8-step agent execution, code retention, commands, pause/reset/exit, fresh sessions and no external requests before opening Scratch.',
     )
     console.log(`Screenshots: ${output}`)
   } finally {
