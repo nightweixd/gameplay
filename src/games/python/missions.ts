@@ -11,10 +11,7 @@ export type Mission = {
   hint: string
   solution: string
   check: string
-  lesson: string
 }
-
-const course = 'https://geniuss-organization-3.gitbook.io/geniuscode+-python-module'
 
 export const missions: Mission[] = [
   {
@@ -31,7 +28,6 @@ export const missions: Mission[] = [
     solution: 'print("Welcome!")\nprint(3)\n',
     check:
       'assert _output.strip().splitlines() == ["Welcome!", "3"], "Print Welcome! first, then 3, each on its own line."\nassert any(isinstance(n, _ast.Call) and isinstance(n.func, _ast.Name) and n.func.id == "print" and any(isinstance(a, _ast.Constant) and type(a.value) is int and a.value == 3 for a in n.args) for n in _ast.walk(_tree)), "Print the integer 3 without quotation marks, not the string \'3\'."',
-    lesson: `${course}/module-1-introduction-to-python/part-1-string-integer`,
   },
   {
     id: 'variables',
@@ -47,7 +43,6 @@ export const missions: Mission[] = [
     solution: 'name = "Nova"\ncoins = 3\nprint(name)\nprint(coins)\n',
     check:
       'assert isinstance(_ns.get("name"), str) and _ns["name"].strip(), "Give name some text in quotation marks."\nassert type(_ns.get("coins")) is int and _ns["coins"] == 3, "Set coins to the integer 3, not the string \'3\'."\nassert _ns["name"] in _output, "Print a welcome message that includes name."',
-    lesson: `${course}/module-1-introduction-to-python/part-1-string-integer`,
   },
   {
     id: 'cinema',
@@ -64,7 +59,6 @@ export const missions: Mission[] = [
       'age = int(input("Your age: "))\nif age < 12:\n    price = 5\nelse:\n    price = 10\nprint("Ticket:", price, "coins")\n',
     check:
       'assert any(isinstance(n, _ast.If) for n in _ast.walk(_tree)), "Use an if / else decision for the two prices."\nassert type(_ns.get("age")) is int, "Convert the age to an integer with int()."\nassert _ns.get("price") == (5 if _ns["age"] < 12 else 10), "Under 12s pay 5 coins. Ages 12 and above pay 10."\nfor _age in (7, 12, 18):\n    _test = _replay([str(_age)])\n    assert _test.get("price") == (5 if _age < 12 else 10), "Your price should also work for ages 7, 12 and 18. Check both branches."',
-    lesson: `${course}/module-1-introduction-to-python/part-5-cinema-price`,
   },
   {
     id: 'basket',
@@ -80,7 +74,6 @@ export const missions: Mission[] = [
     solution: 'fruits = ["apple", "banana"]\nfruits.append("orange")\nprint(fruits)\n',
     check:
       'assert _ns.get("fruits") == ["apple", "banana", "orange"], "Your basket needs apple, banana and orange in that order."\nassert any(isinstance(n, _ast.Call) and isinstance(n.func, _ast.Attribute) and n.func.attr == "append" for n in _ast.walk(_tree)), "Practise adding an item with append()."',
-    lesson: `${course}/module-2-lists/part-2-fruits-basket`,
   },
   {
     id: 'shop',
@@ -98,7 +91,6 @@ export const missions: Mission[] = [
       'prices = {"juice": 3, "sandwich": 6}\nprices["popcorn"] = 4\ntotal = prices["juice"] + prices["popcorn"]\nprint("Snack total:", total)\n',
     check:
       'assert _ns.get("prices") == {"juice": 3, "sandwich": 6, "popcorn": 4}, "Keep the original prices and add popcorn with a value of 4."\nassert _ns.get("total") == 7, "Juice plus popcorn costs 7 coins."\nassert any(isinstance(n, _ast.Subscript) and isinstance(n.value, _ast.Name) and n.value.id == "prices" for n in _ast.walk(_tree)), "Use square brackets to read the prices dictionary."',
-    lesson: `${course}/module-3-dictionary/part-4-mini-online-shop-viewer`,
   },
   {
     id: 'countdown',
@@ -114,7 +106,6 @@ export const missions: Mission[] = [
     solution: 'count = 3\nwhile count > 0:\n    print(count)\n    count -= 1\nprint("Go!")\n',
     check:
       'assert any(isinstance(n, _ast.While) for n in _ast.walk(_tree)), "Use a while loop for the countdown."\nassert _output.strip().splitlines() == ["3", "2", "1", "Go!"], "Print 3, 2, 1, then Go! on separate lines."\nassert _ns.get("count") == 0, "Decrease count until it reaches zero."',
-    lesson: `${course}/module-4-while-loop/part-1-basic-counting`,
   },
   {
     id: 'lanterns',
@@ -131,7 +122,6 @@ export const missions: Mission[] = [
       'colours = ["blue", "gold", "mint", "coral"]\nfor colour in colours:\n    light(colour)\n',
     check:
       'assert any(isinstance(n, _ast.For) for n in _ast.walk(_tree)), "Use a for loop to visit the colours list."\nassert _lights == ["blue", "gold", "mint", "coral"], "Light blue, gold, mint and coral in that order, once each."',
-    lesson: `${course}/module-5-for-loop/part-1-loop-through-a-list`,
   },
   {
     id: 'functions',
@@ -149,7 +139,6 @@ export const missions: Mission[] = [
       'def ticket_price(age):\n    if age < 12:\n        return 5\n    else:\n        return 10\n\nchild_ticket = ticket_price(8)\nadult_ticket = ticket_price(16)\nprint(child_ticket, adult_ticket)\n',
     check:
       'assert any(isinstance(n, _ast.FunctionDef) and n.name == "ticket_price" for n in _ast.walk(_tree)), "Define a function named ticket_price with an age parameter."\nassert callable(_ns.get("ticket_price")), "ticket_price must be a function."\nfor _age in (0, 8, 12, 16, 30):\n    assert _ns["ticket_price"](_age) == (5 if _age < 12 else 10), "Return 5 for under 12s and 10 for everyone else, including age 12."\nassert _ns.get("child_ticket") == 5 and _ns.get("adult_ticket") == 10, "Call your function to set child_ticket and adult_ticket."\nassert "5" in _output and "10" in _output, "Print both ticket results."',
-    lesson: `${course}/module-6-function/part-3-return-values`,
   },
 ]
 

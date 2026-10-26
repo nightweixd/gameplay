@@ -358,8 +358,8 @@ function Welcome() {
                 </li>
                 <li>
                   <strong>Run and learn.</strong> Select Run Python to see the output and check your
-                  work. Need a hint?, Course lesson, and See an example can help. Examples do not
-                  fill the editor for you.
+                  work. Need a hint? and See an example can help. Examples do not fill the editor
+                  for you.
                 </li>
                 <li>
                   <strong>Try your own ideas.</strong> Free code is a blank playground without

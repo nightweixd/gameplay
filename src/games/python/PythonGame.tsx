@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import {
   ArrowLeft,
   ArrowRight,
-  BookOpen,
   Check,
   ChevronDown,
   Code2,
@@ -326,9 +325,6 @@ export default function PythonGame() {
                 <button aria-expanded={hint} onClick={() => setHint((value) => !value)}>
                   <Lightbulb size={16} aria-hidden="true" /> {hint ? 'Hide hint' : 'Need a hint?'}
                 </button>
-                <a href={mission.lesson} target="_blank" rel="noopener noreferrer">
-                  <BookOpen size={16} aria-hidden="true" /> Course lesson
-                </a>
                 <button aria-expanded={example} onClick={() => setExample((value) => !value)}>
                   See an example
                 </button>
@@ -453,8 +449,7 @@ export default function PythonGame() {
           <h2 id="python-help-title">Bring the carnival to life.</h2>
           <p>
             Choose a mission, read the goal, and write your code in the blank editor. Run Python to
-            see your output and check your work. The hint and course lesson can help if you get
-            stuck.
+            see your output and check your work. The hint and example can help if you get stuck.
           </p>
           <ol>
             <li>Python cares about spaces. Use four spaces inside a decision, loop or function.</li>

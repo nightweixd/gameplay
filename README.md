@@ -33,7 +33,7 @@ Write real Python to bring a festival to life. Eight guided missions follow Geni
 
 - Open a cinema, pack a fruit basket, stock a snack shop, launch a countdown, and light a lantern trail.
 - Try **Free code** for your own Python programs, with input, output, useful errors, and `.py` downloads.
-- Get a hint or open the matching course lesson when you need help.
+- Get a hint or view an example when you need help.
 - Collect practice stamps and keep drafts in this browser—no student account or cloud save.
 
 See the [Python guide](docs/python.md) for the course mapping, runtime limits, and development notes.

@@ -7,6 +7,7 @@
 - Keep the welcome cards in Scratch, Minecraft, Python order. Scratch links directly to `https://scratch.mit.edu/`; do not add a local Scratch gameplay page or embedded editor.
 - Python Carnival lives in `src/games/python/` at `/games/python`. Keep the first two missions separate: literal strings/integers first, variables second. Do not require input, conditionals or loops in those two beginner tasks.
 - Python mission editors and Free code start blank, unless the student has a saved draft. Keep examples opt-in and do not insert them into the editor automatically. Confirm resets before clearing code; preserve other drafts and earned stamps.
+- Keep Python help self-contained with hints and examples. Do not add external Course lesson links to the gameplay or its help guides.
 - Keep Python execution in a disposable browser worker. Never introduce a server-side untrusted-code runner or publish generated Python runtime files in Git. Preserve runtime licenses and execution limits.
 - The connected deployment uses Workers Static Assets. Preserve `wrangler.jsonc` and its compatibility date unless a change is needed and verified. The build output remains suitable for static hosting.
 - Add future games to `src/games/catalog.ts` and the route selection in `src/App.tsx`. Only show a playable link when a game is implemented. Coming-soon entries must not pretend to be playable.

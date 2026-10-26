@@ -60,6 +60,11 @@ const chrome =
     assert.equal(await page.getByText('3 adventures to explore', { exact: true }).count(), 1)
     await page.getByRole('link', { name: 'Play Python', exact: true }).click()
     await page.getByRole('heading', { name: 'Python Carnival', exact: true }).waitFor()
+    assert.equal(await page.getByRole('link', { name: 'Course lesson', exact: true }).count(), 0)
+    assert.equal(await page.locator('a[href*="gitbook.io"]').count(), 0, 'no external course links')
+    await page.getByRole('button', { name: 'How to play', exact: true }).click()
+    assert.doesNotMatch(await page.getByRole('dialog').innerText(), /course lesson/i)
+    await page.keyboard.press('Escape')
     for (const width of [1500, 1280, 1024, 768, 390, 320]) {
       await page.setViewportSize({ width, height: 1100 })
       assert.equal(
@@ -114,6 +119,11 @@ const chrome =
         .first()
         .click()
       assert.equal(await editor.inputValue(), '', `${mission.id}: new mission starts blank`)
+      assert.equal(
+        await page.locator('a[href*="gitbook.io"]').count(),
+        0,
+        `${mission.id}: no external course links`,
+      )
       await page.getByRole('button', { name: 'See an example', exact: true }).click()
       assert.equal(await editor.inputValue(), '', 'viewing an example does not prefill the editor')
       await editor.fill(mission.solution)
@@ -194,6 +204,9 @@ const chrome =
     )
     await page.getByRole('link', { name: 'All games', exact: true }).click()
     await page.getByRole('heading', { name: 'Choose your adventure' }).waitFor()
+    await page.getByRole('button', { name: 'How to play', exact: true }).click()
+    assert.doesNotMatch(await page.getByRole('dialog').innerText(), /course lesson/i)
+    await page.keyboard.press('Escape')
     assert.deepEqual(errors, [], 'no uncaught browser errors')
     assert.deepEqual(failed, [], 'no failed assets')
     assert.deepEqual(uploads, [], 'no code or inputs uploaded')

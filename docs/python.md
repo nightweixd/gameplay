@@ -19,7 +19,7 @@ Start with one concept at a time. The first mission uses literal text and intege
 | Light the lantern trail  | Module 5: for loops            | Loop through a list and call `light()`        |
 | Build the ticket machine | Module 6: functions            | Return ticket prices from a reusable function |
 
-The topic order and project themes follow GeniusCode+'s Basic Python curriculum. Mission text, examples and checks are authored for this playground, not copied teacher lesson bodies. Each mission links to its corresponding course topic. Missions can be attempted in any order.
+The topic order and project themes follow GeniusCode+'s Basic Python curriculum. Mission text, examples and checks are authored for this playground, not copied teacher lesson bodies. Help is provided through in-game hints and examples, without external course lesson links. Missions can be attempted in any order.
 
 ## Playing and experimenting
 
